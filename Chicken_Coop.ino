@@ -167,6 +167,7 @@ bool menuentered;
 //Handbetrieb
 int handstate = 0;
 bool pressed = false;
+bool handbetrieb = false;
 
 //EEPROM
 #define i2c_address 0x57 //RTC EEPROM Adresse
@@ -625,11 +626,13 @@ bool TimeCheck()
 
   if (hour == Flashdaten.stundehoch && minute == Flashdaten.minutehoch)
   {
+    handbetrieb = false;
     steuerunghoch();
   }
 
   if (hour == Flashdaten.stunderunter && minute == Flashdaten.minuterunter)
   {
+    handbetrieb = false;
     steuerungrunter();
   }
 
@@ -701,18 +704,20 @@ bool Handbetrieb ()
     switch (up_down)
     {
       case 0:
-       digitalWrite(PH_ON, LOW);
+        HandRelaisOff();
         break;
 
       case 1:
+        handbetrieb = true;
         steuerunghoch();
         break;
 
       case 2:
-        digitalWrite(PH_ON, LOW);
+        HandRelaisOff();
         break;
 
       case 3:
+        handbetrieb = true;
         steuerungrunter();
         break;
       default:
@@ -744,7 +749,7 @@ bool UndervoltageCheck ()
   }
   else
   {
-    setFaultLED(0,0,0);
+    setFaultLED(0, 0, 0);
     return false;
   }
 }

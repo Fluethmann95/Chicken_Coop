@@ -46,7 +46,20 @@ bool RelaisOff (unsigned long duration)
   return true;
 }
 
-
+bool HandRelaisOff ()
+{
+  if(relaison && handbetrieb)
+  {
+    digitalWrite(CNTRL_PH1, LOW);
+    digitalWrite(CNTRL_PH2, LOW);
+    digitalWrite(PH_ON, LOW);
+    EndstopAus();
+    StateLEDoff();
+    relaison = false;
+    //setStateLED(0, 0, 20);
+  }
+  return true;
+}
 
 bool EndstopEin()
 {
