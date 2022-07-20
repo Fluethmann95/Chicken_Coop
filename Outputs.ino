@@ -1,25 +1,20 @@
 bool steuerunghoch()
 {
-  int i = 0;
-  int j = 0;
   if (!relaison)
-  { currentmillis = millis();
+  {
+    currentmillis = millis();
     relaison = true;
     EndstopEin();
     digitalWrite(CNTRL_PH1, HIGH);
     digitalWrite(CNTRL_PH2, LOW);
     setStateLED(100, 100, 0);
     digitalWrite(PH_ON, HIGH);
-
-
   }
   return true;
 }
 
 bool steuerungrunter()
 {
-  int i = 0;
-  int j = 0;
   if (!relaison)
   {
     currentmillis = millis();
@@ -46,8 +41,7 @@ bool RelaisOff (unsigned long duration)
     EndstopAus();
     StateLEDoff();
     relaison = false;
-    //   setStateLED(0, 0, 20);
-
+    //setStateLED(0, 0, 20);
   }
   return true;
 }
