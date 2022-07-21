@@ -31,10 +31,10 @@ bool steuerungrunter()
 bool RelaisOff (unsigned long duration)
 {
 
-
   duration = duration * 100;
-  if (relaison &&  ((millis() - currentmillis) > duration))
-  {
+  if (!handbetrieb && relaison &&  ((millis() - currentmillis) > duration))
+  { Serial.println("Auto Relais off");
+
     digitalWrite(CNTRL_PH1, LOW);
     digitalWrite(CNTRL_PH2, LOW);
     digitalWrite(PH_ON, LOW);
@@ -48,14 +48,15 @@ bool RelaisOff (unsigned long duration)
 
 bool HandRelaisOff ()
 {
-  if(relaison && handbetrieb)
-  {
+  if (relaison && handbetrieb)
+  { Serial.println("handrelais off");
     digitalWrite(CNTRL_PH1, LOW);
     digitalWrite(CNTRL_PH2, LOW);
     digitalWrite(PH_ON, LOW);
     EndstopAus();
     StateLEDoff();
     relaison = false;
+    up_down++;
     //setStateLED(0, 0, 20);
   }
   return true;
@@ -77,21 +78,21 @@ bool EndstopAus()
 
 bool AlarmOff(float maxCurrent)
 {
-  if (current_mA > maxCurrent)
+/*  if (current_mA > maxCurrent)
   {
     setFaultLED(255, 0, 0);
-    RelaisOff(0);
+    digitalWrite(PH_ON, LOW);
   }
 
   if (NOTAUSstate)
   {
     setFaultLED(255, 255, 0);
-    RelaisOff(0);
+    digitalWrite(PH_ON, LOW);
   }
   if (FallingEdge)
   {
-    RelaisOff(0);
-  }
+    digitalWrite(PH_ON, LOW);
+  }*/
   return true;
 }
 

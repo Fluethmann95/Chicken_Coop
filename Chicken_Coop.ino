@@ -168,6 +168,7 @@ bool menuentered;
 int handstate = 0;
 bool pressed = false;
 bool handbetrieb = false;
+static int up_down = 0;
 
 //EEPROM
 #define i2c_address 0x57 //RTC EEPROM Adresse
@@ -693,14 +694,17 @@ bool LoadValue()
 
 bool Handbetrieb ()
 {
-  static int up_down = 0;
+
 
   if (btnState && !handstate)
   {
-    Serial.println(up_down);
+
     up_down++;
-    if (up_down > 3)
-      up_down = 0;
+    if (up_down > 5)
+    { up_down = 0;
+    }
+    Serial.println(up_down);
+    Serial.println(current_mA);
     switch (up_down)
     {
       case 0:
@@ -708,15 +712,24 @@ bool Handbetrieb ()
         break;
 
       case 1:
+
+        break;
+
+      case 2:
         handbetrieb = true;
         steuerunghoch();
         break;
 
-      case 2:
-        HandRelaisOff();
+      case 3:
+        HandRelaisOff();//fehler
+
         break;
 
-      case 3:
+      case 4:
+
+        break;
+
+      case 5:
         handbetrieb = true;
         steuerungrunter();
         break;
