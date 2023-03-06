@@ -15,4 +15,6 @@ bool Solar()
   }
   DAC_SET(voltageset);
    //Serial.println(voltageset);
+
+   return true;
 }

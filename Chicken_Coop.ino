@@ -188,6 +188,8 @@ void setup() {
   DOG.createCanvas(128, 64, 0, 0);
 
   setEncoderPosition(menuposition);
+
+
 }
 
 //Endlosschleife
@@ -611,6 +613,7 @@ bool Menu ()
 
     }
   }
+  return true;
 
 }
 
@@ -632,12 +635,15 @@ bool TimeCheck()
   {
     steuerungrunter();
   }
+  return true;
 
 }
 
 bool Save()
 {
   Flashspeicher.write(Flashdaten);
+    return true;
+
 }
 
 bool LoadValue()
@@ -686,6 +692,8 @@ bool LoadValue()
       //dürfte nie eintreten!
       break;
   }
+    return true;
+
 }
 
 bool Handbetrieb ()
@@ -719,6 +727,7 @@ bool Handbetrieb ()
 
         break;
     }
+
   }
 
   handstate = btnState;
@@ -732,7 +741,7 @@ bool Handbetrieb ()
 
 bool UndervoltageCheck ()
 {
-  if (UBATValue < 110)
+  if (UBATValue < 110 && UBATValue > 0)
   {
     setFaultLED(10, 0, 0);
     return true;

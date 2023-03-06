@@ -30,7 +30,7 @@ bool SERIAL_INIT()
 
 bool DISPLAY_INIT()
 {
-  DOG.initialize(LCD_CS, SPI_MOSI, SPI_SCK, LCD_CD, LCD_RST, DOGS102);
+  DOG.begin(LCD_CS, SPI_MOSI, SPI_SCK, LCD_CD, LCD_RST, DOGS102);
   DOG.clear();
   DOG.contrast(0x05);
   DOG.all_pixel_on(true);
@@ -129,4 +129,6 @@ bool FlashRead()
 {
   Flashdaten = Flashspeicher.read();
   Serial.println("Flash Gelesen!");
+    return true;
+
 }

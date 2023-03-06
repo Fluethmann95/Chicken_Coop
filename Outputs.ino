@@ -1,7 +1,5 @@
 bool steuerunghoch()
 {
-  int i = 0;
-  int j = 0;
   if (!relaison)
   { currentmillis = millis();
     relaison = true;
@@ -18,8 +16,6 @@ bool steuerunghoch()
 
 bool steuerungrunter()
 {
-  int i = 0;
-  int j = 0;
   if (!relaison)
   {
     currentmillis = millis();
