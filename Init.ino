@@ -1,5 +1,4 @@
-bool PIN_INIT()
-{
+bool PIN_INIT() {
   //OUTPUT
   pinMode(HGB_ON, OUTPUT);
   pinMode(PH_ON, OUTPUT);
@@ -19,8 +18,7 @@ bool PIN_INIT()
   return true;
 }
 
-bool SERIAL_INIT()
-{
+bool SERIAL_INIT() {
   Serial.begin(115200);
   Serial.println("Hühnerklappe");
   delay(300);
@@ -28,8 +26,7 @@ bool SERIAL_INIT()
   return true;
 }
 
-bool DISPLAY_INIT()
-{
+bool DISPLAY_INIT() {
   DOG.begin(LCD_CS, SPI_MOSI, SPI_SCK, LCD_CD, LCD_RST, DOGS102);
   DOG.clear();
   DOG.contrast(0x05);
@@ -40,18 +37,16 @@ bool DISPLAY_INIT()
   String file = __FILE__;
   String fileshort = file.substring(file.lastIndexOf('_') + 1);
   Serial.println(fileshort);
-  DOG.string(0, 7 , UBUNTUMONO_B_8, "f.fluethmann" , ALIGN_CENTER);
-  DOG.string(0, 2 , UBUNTUMONO_B_8, "Version:" , ALIGN_CENTER);
+  DOG.string(0, 7, UBUNTUMONO_B_8, "f.fluethmann", ALIGN_CENTER);
+  DOG.string(0, 2, UBUNTUMONO_B_8, "Version:", ALIGN_CENTER);
   DOG.string(0, 4, UBUNTUMONO_B_8, __DATE__, ALIGN_CENTER);
   DOG.string(0, 5, UBUNTUMONO_B_8, __TIME__, ALIGN_CENTER);
   delay(2000);
   return true;
 }
 
-bool RTC_INIT()
-{
-  if (Serial)
-  {
+bool RTC_INIT() {
+  if (Serial) {
     String Stunde;
     String Minute;
     String Sekunde;
@@ -76,15 +71,13 @@ bool RTC_INIT()
 
   return true;
 }
-bool I2C_INIT()
-{
+bool I2C_INIT() {
   Wire.begin();
   return true;
 }
 
-bool INA_INIT()
-{
-  if (! ina219.begin()) {
+bool INA_INIT() {
+  if (!ina219.begin()) {
     Serial.println("Failed to find INA219 chip");
     while (1) {
       delay(10);
@@ -93,42 +86,43 @@ bool INA_INIT()
   return true;
 }
 
-bool ADC_INIT()
-{
+bool ADC_INIT() {
   if (!adc.init()) {
     Serial.println("ADC ADS1115 not connected!");
   }
 
-  adc.setVoltageRange_mV(ADS1115_RANGE_6144); //comment line/change parameter to change range
-  adc.setCompareChannels(ADS1115_COMP_0_GND); //comment line/change parameter to change channel
-  adc.setMeasureMode(ADS1115_CONTINUOUS); //comment line/change parameter to change mode
+  adc.setVoltageRange_mV(ADS1115_RANGE_6144);  //comment line/change parameter to change range
+  adc.setCompareChannels(ADS1115_COMP_0_GND);  //comment line/change parameter to change channel
+  adc.setMeasureMode(ADS1115_CONTINUOUS);      //comment line/change parameter to change mode
 
   return true;
 }
 
-bool DAC_INIT()
-{
-  if (!  MCP.begin())
-  {
+bool DAC_INIT() {
+  if (!MCP.begin()) {
     Serial.println("DAC MCP4725 not connected!");
-  }
-  else
-  {
+  } else {
     Serial.println(MCP4725_VERSION);
   }
   return true;
 }
 
-bool EEPROM_INIT()
-{
-  AT24Cxx eep(i2c_address, EEPROM_SIZE); // Initilaize using AT24CXX(i2c_address, size of eeprom in KB).
+bool EEPROM_INIT() {
+  AT24Cxx eep(i2c_address, EEPROM_SIZE);  // Initilaize using AT24CXX(i2c_address, size of eeprom in KB).
   return true;
 }
 
-bool FlashRead()
-{
+bool FlashRead() {
   Flashdaten = Flashspeicher.read();
   Serial.println("Flash Gelesen!");
-    return true;
+  return true;
+}
 
+bool SD_INIT() {
+
+
+  if (!SD.begin(SD_CHIP_SELECT_PIN)) {
+    Serial.println("Card failed, or not present");
+  }
+  Serial.println("card initialized.");
 }
